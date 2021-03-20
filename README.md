@@ -1,4 +1,4 @@
-# XRNFT
+# xrNFT
 
 Packages used:
 
