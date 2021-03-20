@@ -17,6 +17,7 @@ function App() {
   const [latLong, setLatLong] = useState(null);
   const [caches, setCaches] = useState([]);
   const [video, setVideo] = useState(null);
+  const [signedIn, setSignedIn] = useState(false);
 
   const [ canUseLocation, setCanUseLocation] = useState(true);
 
@@ -97,7 +98,7 @@ function App() {
   const getCaches = (callback) => {
     console.log("Getting caches")
     const max = 50;
-    axios.get(`http://127.0.0.1:5000/get?lat=${latLong.lat}&lng=${latLong.lng}&max=${max}`)
+    axios.get(`${location.origin}/get?lat=${latLong.lat}&lng=${latLong.lng}&max=${max}`)
   .then(function (response) {
     // handle successee
     console.log(response);
@@ -138,6 +139,18 @@ function App() {
     }
   }, []);
 
+  const signIn = useCallback(() => {
+    axios.get(`${location.origin}/signin`).then((res) => {
+      if(res.status === 200) {
+        if(res.data.redirect) {
+          window.open(res.data.redirect);
+        } else if(res.data.user_token) {
+          localStorage.setItem('XUMM_USER_TOKEN', res.data.user_token)
+        }
+      }
+    })
+  })
+
   return (
     <div className="App">
       <Nav />
@@ -165,6 +178,7 @@ function App() {
       { viewMode === ViewModes.UploadView && 
         <FileUpload upload={video} callback={handleFileUploadCallback}/>
       }
+      <button onClick={signIn}>Sign In</button>
 
     </div>
   );

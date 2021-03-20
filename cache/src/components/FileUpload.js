@@ -43,7 +43,7 @@ const FileUpload = ({ upload, callback }) => {
         console.log(upload)
         console.log(uploadedFile)
 
-        axios.post('http://127.0.0.1:5000/upload', formData, {
+        axios.post(`${location.origin}/upload`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           },

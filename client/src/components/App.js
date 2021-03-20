@@ -97,7 +97,7 @@ function App() {
   const getCaches = (callback) => {
     console.log("Getting caches")
     const max = 50;
-    axios.get(`http://127.0.0.1:5000/get?lat=${latLong.lat}&lng=${latLong.lng}&max=${max}`)
+    axios.get(`${window.location.origin}/get?lat=${latLong.lat}&lng=${latLong.lng}&max=${max}`)
   .then(function (response) {
     // handle successee
     console.log(response);
