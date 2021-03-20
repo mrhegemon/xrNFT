@@ -7,7 +7,7 @@ WebXR + Minting ERC721 and ERC1155 tokens or XRP Purchase Wallets as a GreenNFT
 ## NFTHack Project
 
 ### Packages used:
-- 
+
 - [XRPL NFT Creator](https://github.com/calvincs/xrpl-nft-creator) by Calcs ([@calcs9](https://twitter.com/calcs9)) 
 - ETH NFT Minter https://github.com/alto-io/nft-minter Polygon https://polygon.technology/
 - AR.js
