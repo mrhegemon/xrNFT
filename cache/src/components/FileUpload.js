@@ -6,8 +6,8 @@ import { Button } from "@material-ui/core";
 
 function blobToFile(theBlob, fileName){
   //A Blob() is almost a File() - it's just missing the two properties below which we will add
-  theBlob.lastModifiedDate = new Date();
-  theBlob.name = fileName;
+  if(!theBlob.lastModifiedDate) theBlob.lastModifiedDate = new Date();
+  if(!theBlob.name) theBlob.name = fileName;
   return theBlob;
 }
 
@@ -17,7 +17,7 @@ const UploadStates = {
   Uploaded: 'uploaded'
 }
 
-const FileUpload = ({ upload, callback }) => {
+const FileUpload = ({ upload, latLong, callback }) => {
   // TODO: 
   // 1. Add video preview, re-record and submit buttons
   // 2. On cancel, hide view
@@ -37,13 +37,14 @@ const FileUpload = ({ upload, callback }) => {
       const uploadedFile = blobToFile(upload, "video");
       setUploadedFile(uploadedFile);
       formData.append('file', uploadedFile);
+      formData.append('location', JSON.stringify(latLong));
 
         console.log("ATTEMPTING FILE UPLOAD")
         console.log("Uploaded file is")
         console.log(upload)
         console.log(uploadedFile)
 
-        axios.post(`${location.origin}/upload`, formData, {
+        axios.post(`${location.origin}/api/upload`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           },
@@ -73,6 +74,10 @@ const FileUpload = ({ upload, callback }) => {
           console.log(err);
       })
   }, [upload]);
+
+  useEffect(() => {
+    console.log("Latlong is", latLong);
+  }, [latLong])
 
   return (
     <div className="overlay">

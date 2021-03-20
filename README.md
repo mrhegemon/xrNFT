@@ -22,8 +22,7 @@ WebXR + Minting ERC721 and ERC1155 tokens
 7. user displays NFT
 
 # Cache
-Main App
 
 ## Server
 
-## Client 
+## Client

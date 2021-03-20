@@ -4,10 +4,6 @@ const xAddr = require('xrpl-tagged-address-codec');
 const { XummSdk } = require('xumm-sdk')
 var uuidv4 = require('uuid/v4');
 
-// const ipfsHash = require('ipfs-only-hash')
-// const fileSys = require('fs');
-// const crypto = require('crypto');
-
 const tempXummAcc = 'rLv5Hjg6rpN9TLfPrQ7u3Sr4UagX4co7FW'
 
 const { getNFTs, saveNFT } = require('./storage')
@@ -43,42 +39,58 @@ const startXumm = () => {
           clearInterval(walletFundedChecking);
           resolve()
         }
-      } catch (e) {}
+      } catch (e) {
+        console.error(e);
+      }
     }, 1000); //Will check every 10 seconds
   })
 }
 
-const xummSignIn = async () => {
-  const created = await XUMM.payload.create({ 
+const createSignInRequest = async (callback) => {
+  const signInRequest = await XUMM.payload.create({ 
     options: {
       submit: false,
       expire: 240,
+      return_url: {
+        app: `${location.origin}/api/signin?payload={id}`,
+        web: `${location.origin}/api/signin?payload={id}`
+      }
     },
-    user_token: uuidv4(),
     txjson: {
       TransactionType : "SignIn"
     }
   })
-  console.log(created)
-  const payload = await XUMM.payload.get(created)
-  console.log(payload)
+  awaitSignInConfirmation(signInRequest, callback);
+  return signInRequest;
 }
 
-const mintNFT = async (location, { thumbnail, media, metadata }, userWalletAddress) => {
+const awaitSignInConfirmation = async (signInRequest, callback) => {
+  const { created } = await XUMM.payload.createAndSubscribe(signInRequest)
+  callback(created)
+}
+
+const mintNFT = async ({ location, thumbnail, media, metadata }, user_token) => {
+
+  if(!user_token) user_token = await new Promise((resolve, reject) => {
+    createSignInRequest((payload) => {
+      if(payload) resolve(payload);
+      reject();
+    })
+  })
+
+  const locationString = location.lat + ':' + location.long
 
   // upload thumbnail and media in parallel
-  const [thumbnailCID, mediaCID] = await new Promise.all([ addToIPFS(thumbnail), addToIPFS(media)]);
+  const [thumbnailCID, mediaCID] = await Promise.all([ addToIPFS(thumbnail), addToIPFS(media)]);
 
-  const CID = await addToIPFS({ ...metadata, thumbnailUrl: thumbnailCID, dataUrl: mediaCID });
+  const CID = await addToIPFS(JSON.stringify({ location: locationString, metadata, thumbnailUrl: thumbnailCID, dataUrl: mediaCID }));
   const CID_URI = `ipfs://${CID}/`;
-
-  // const tx = await updateXRPWalletData(xrpDomainField, treasuryWallet);
   
-  const created = await XRUMM.payload.create({ 
+  const transactionRequest = await XUMM.payload.create({ 
     txjson: {
       TransactionType: 'Payment',
       Destination: process.env.ADDRESS,
-      Amount: '1',
+      Amount: '10',
       Fee: '12',
       Memos:[
         {
@@ -87,12 +99,23 @@ const mintNFT = async (location, { thumbnail, media, metadata }, userWalletAddre
           }
         }
       ]
-    }
+    },
+    user_token
   })
-  const payload = await XUMM.payload.get(created)
+  console.log(transactionRequest)
+  const success = await new Promise((resolve, reject) => {
+    XUMM.payload.createAndSubscribe(transactionRequest, (progress) => {
+      console.log(progress)
+    })
+  })
+  // todo: handle this better
+  if(!success) return;
+  
+  const payload = await XUMM.payload.get(transactionRequest)
   console.log(payload)
 
-  // saveNFT(location, tx)
+  // todo
+  saveNFT(location, { memo: payload.payload.request_json.Memos[0].Memo.MemoData, CID })
   
   return { 
     ipfsCID: CID,
@@ -107,14 +130,18 @@ const startIPFS = async () => {
   IPFS = await create();
 }
 
-const addToIPFS = async (dataToUpload) => {
-
+const addToIPFS = async (dataToUpload, metadata) => {
+  console.log(typeof dataToUpload)
+  const file = {
+    content: dataToUpload,
+    path: metadata ? 'metadata.json' : undefined
+  }
   const addOptions = {
-      pin: true,
-      timeout: 300000
+    pin: true,
+    timeout: 300000
   };
 
-  const result = await IPFS.add(dataToUpload, addOptions);
+  const result = await IPFS.add(file, addOptions);
   return result.cid.toString();
 }
 
@@ -176,7 +203,8 @@ module.exports = {
   initMinter,
   stopMinter,
   mintNFT,
-  getNFT
+  getNFT,
+  createSignInRequest
 }
 
 

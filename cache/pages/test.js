@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import { Scene, Entity, Box } from 'aframe-react';
 import App from '../src/components/App'
+import NoSSR from 'react-no-ssr';
 
 export default function Home() {
   return (
@@ -14,8 +16,18 @@ export default function Home() {
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 
       </Head>
-        <App />
+      <Scene
+        vr-mode-ui="enabled: false"
+        embedded
+        arjs='sourceType: webcam; debugUIEnabled: false;'>
 
+        <Box scale="15 15 15" position="0 200 0" gps-entity-place="latitude: your-latitude>; longitude: your-longitude;"></Box>
+        <Entity
+          primitive="a-camera"
+          gps-camera
+          rotation-reader
+        />
+      </Scene>
     </div>
   )
 }
