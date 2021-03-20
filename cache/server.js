@@ -33,5 +33,5 @@ nextApp.prepare().then(() => {
   }, (req, res) => {
     const parsedUrl = parse(req.url, true);
     handle(req, res, parsedUrl);
-  }).listen(3000, () => console.log('Server Started...'));
+  }).listen(3000, () => console.log('Server Started ...'));
 })
