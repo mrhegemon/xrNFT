@@ -2,14 +2,18 @@
 
 GreenNTF magic in 3D AR Immersive worldscale 2D/3D art
 
-WebXR + Minting ERC721 and ERC1155 tokens
+WebXR + Minting ERC721 and ERC1155 tokens or XRP Purchase Wallets as a GreenNFT
 
 ## NFTHack Project
 
 ### Packages used:
-- Polygon NFT https://polygon.technology/
+- 
+- [XRPL NFT Creator](https://github.com/calvincs/xrpl-nft-creator) by Calcs ([@calcs9](https://twitter.com/calcs9)) 
+- ETH NFT Minter https://github.com/alto-io/nft-minter Polygon https://polygon.technology/
 - AR.js
 - A-Frame
+- IPFS https://pinata.cloud/
+- NEXT.js
 
 # Usage
 
