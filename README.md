@@ -1,12 +1,14 @@
-# cache.XRP greenNFT wallets
+# xrNFT cache.XRP greenNFT wallets
 
-## xrNFT - Packages used:
+## NFTHack Project
+
+### Packages used:
 
 - [XRPL NFT Creator](https://github.com/calvincs/xrpl-nft-creator) by Calcs ([@calcs9](https://twitter.com/calcs9)) 
 - AR.js
 - A-Frame
 
-
+# Usage
 
 
 1. user takes photo / video
@@ -16,3 +18,9 @@
 5. server mints nft with ipfs hash
 6. POST returns true or whatever metadata client needs
 7. user displays NFT
+
+# Cache
+
+## Server
+
+## Client
