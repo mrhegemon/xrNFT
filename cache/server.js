@@ -20,7 +20,7 @@ app.use(express.static('public'))
 
 // TODO: DO THE REQUEST HANDLER FOR NEXT
 
-if (!process.env.SECRET) throw new Error('No treasury wallet supplied, aborting...');
+if (!process.env.SECRET) throw new Error('No treasury wallet supplied, aborting ...');
 nextApp.prepare().then(() => {
   console.log("Next app prepared");
   // initMinter(process.env.SECRET).then(() => {
