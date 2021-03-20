@@ -25,7 +25,7 @@ nextApp.prepare().then(() => {
   console.log("Next app prepared");
   // initMinter(process.env.SECRET).then(() => {
   //   console.log("Minter prepped");
-  // })
+  // }) 
 
   https.createServer({
     key: fs.readFileSync('key.pem'),
