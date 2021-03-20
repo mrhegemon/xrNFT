@@ -1,0 +1,44 @@
+{
+  "name": "xrNFT",
+  "author": {
+    "name": "Liam Broza"
+  },
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon server.js",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "aframe": "^1.2.0",
+    "aframe-ar": "^0.2.1-a",
+    "aframe-extras": "^6.1.1",
+    "aframe-react": "^4.4.0",
+    "ar.js": "^2.2.2",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "ipfs-core": "^0.5.2",
+    "ipfs-only-hash": "^2.0.1",
+    "next": "10.0.9",
+    "nodemon": "^2.0.7",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-scripts": "4.0.3",
+    "react-video-recorder": "^3.17.2",
+    "ripple-lib": "^1.9.0",
+    "simple-thumbnail": "^1.6.5",
+    "styled-components": "^5.2.1",
+    "uuid": "^3.4.0",
+    "web-vitals": "^1.0.1",
+    "xrpl-tagged-address-codec": "^0.2.1"
+  }
+}
