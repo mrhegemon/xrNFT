@@ -1,15 +1,17 @@
 # xrNFT cache.XRP greenNFT wallets
 
+GreenNTF magic in 3D AR Immersive worldscale 2D/3D art
+
+WebXR + Minting ERC721 and ERC1155 tokens
+
 ## NFTHack Project
 
 ### Packages used:
-
-- [XRPL NFT Creator](https://github.com/calvincs/xrpl-nft-creator) by Calcs ([@calcs9](https://twitter.com/calcs9)) 
+- Polygon NFT https://polygon.technology/
 - AR.js
 - A-Frame
 
 # Usage
-
 
 1. user takes photo / video
 2. uploads to server
