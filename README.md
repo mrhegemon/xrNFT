@@ -7,7 +7,7 @@ WebXR + Minting ERC721 and ERC1155 tokens
 ## NFTHack Project
 
 ### Packages used:
-- XRPL TS Tools & Polygon NFT https://polygon.technology/
+- Polygon NFT https://polygon.technology/
 - AR.js
 - A-Frame
 
