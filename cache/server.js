@@ -22,7 +22,7 @@ app.use(express.static('public'))
 
 if (!process.env.SECRET) throw new Error('No treasury wallet supplied, aborting...');
 nextApp.prepare().then(() => {
-  console.log("Next app prepared");
+  console.log("Next app prepared before minter");
   // initMinter(process.env.SECRET).then(() => {
   //   console.log("Minter prepped");
   // }) 
