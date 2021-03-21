@@ -23,6 +23,7 @@ const CaptureView = (props) => {
 
     }
     <VideoRecorder
+      useVideoInput={true}
       onRecordingComplete={video => {
         setVideoBlob(video);
         // callback(true, videoBlob);

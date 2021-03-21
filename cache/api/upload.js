@@ -82,8 +82,8 @@ console.log(req.file);
       
       ipfsHash = await mintNFT(nftData);
       
-      fs.rmSync(`./public/uploads/${fileName}`);
-      fs.rmSync(`./public/uploads/${fileName.replace('webm','png')}`);
+      // fs.rmSync(`./public/uploads/${fileName}`);
+      // fs.rmSync(`./public/uploads/${fileName.replace('webm','png')}`);
     } catch (e) {
       console.log(e)
     }

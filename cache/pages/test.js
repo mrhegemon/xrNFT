@@ -32,27 +32,32 @@ function App() {
     console.log(places);
     let scene = document.querySelector('a-scene');
 
-    places.forEach((place) => {
-        let latitude = place.location.lat;
-        let longitude = place.location.lng;
+    places?.forEach(async (place) => {
 
-        const thumbnailUrl = place.thumbnailUrl;
+      
+      let metadata = await(await fetch('https://ipfs.io/ipfs/' + place)).json()
+      console.log(metadata)
+      
+      let latitude = metadata.location.lat;
+      let longitude = metadata.location.lng;
 
-        // TODO: Apply thumbnail as image to marker material
+      const thumbnailUrl = metadata.thumbnailUrl;
 
-        let model = document.createElement('a-entity');
-          model.setAttribute('id', thumbnailUrl);
-          model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-          
-          model.setAttribute('scale', markerModel.scale);
-    
-          model.setAttribute('gltf-model', markerModel.url);
+      // TODO: Apply thumbnail as image to marker material
 
-          // const distanceMsg = model.getAttribute('gps-entity-place');
-  
-          // console.log("Distance message is", distanceMsg);
+      let model = document.createElement('a-entity');
+      model.setAttribute('id', thumbnailUrl);
+      model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
+      
+      model.setAttribute('scale', markerModel.scale);
 
-        scene.appendChild(model);
+      model.setAttribute('gltf-model', markerModel.url);
+
+      const distanceMsg = model.getAttribute('gps-entity-place');
+
+      console.log("Distance message is", distanceMsg);
+
+      scene.appendChild(model);
     });
   }
 
@@ -72,8 +77,8 @@ function App() {
     axios.get(`${location.origin}/api/get?lat=${latLong.lat}&lng=${latLong.lng}&max=${max}`)
   .then(function (response) {
     // handle successee
-    console.log(response);
-    setCaches(response.data.tokens);
+    console.log('response', response);
+    setCaches(response.data);
     renderPlaces(caches);
     if(callback) callback();
   })
@@ -107,7 +112,7 @@ function App() {
       vr-mode-ui='enabled: false'
       arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: true;'>
         <a-camera
-          gps-camera
+          gps-camera="minDistance: 0; maxDistance: 10000000000000000"
           rotation-reader
         />
         <a-box position='0 0.5 5' material='opacity: 0.5;'></a-box>
