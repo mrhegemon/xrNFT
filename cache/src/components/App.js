@@ -62,11 +62,12 @@ function App() {
       if (!IPFS) {
         IPFS = await create()
       }
+      setViewMode(ViewModes.Info);
+
       await loadWeb3();
       console.log("Attempting to load chain data");
       await loadBlockchainData();
       // const nearItems = await getNFTs({ lat, lng }, max, state.caches);
-      setViewMode(ViewModes.Info);
       let scene = document.querySelector('a-scene');
       scene.renderer.setPixelRatio(window.devicePixelRatio);
       let camera = document.createElement('a-camera');
@@ -357,11 +358,19 @@ function App() {
         <Info callback={() => { setViewMode(ViewModes.ARView) }} />
       }
       { viewMode === ViewModes.ARView &&
-        <IconButton onClick={() => { setViewMode(ViewModes.CaptureView) }} style={{ color: "#FFFFFFFF", position: "absolute", marginLeft: "50%", marginRight: "50%", bottom: "2em" }}
-        iconStyle={{width:60, height:60 }}
-        >
-          <AddBoxIcon/>
-        </IconButton>
+        <img
+        src="/assets/RecordButton.png"
+        alt="RecordButton"
+        className="recordButton"
+        style={{
+        padding:".6em",
+        position: "fixed",
+        bottom: "1.6em",
+        marginRight: "50%",
+        marginLeft: "50%",
+        transform: "translate(-50%, 0%)"}}
+        onClick={() => { setViewMode(ViewModes.CaptureView) }} 
+      />
       }
       { viewMode === ViewModes.CaptureView &&
         <CaptureView callback={handleVideoCallback} />

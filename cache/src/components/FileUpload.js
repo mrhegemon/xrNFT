@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { getThumbnails } from 'video-metadata-thumbnails';
 
 function blobToFile(theBlob, fileName){
@@ -62,12 +62,15 @@ const FileUpload = ({ mint, uploadCacheToIPFS, upload, latLong, callback }) => {
 
   return (
     <div className="messageoverlay">
-    <p>Your cache has been deposited into the world</p>
-      {uploadedFile ? (
+    {uploadState === UploadStates.Uploaded ? (
+      <Fragment>
+        <p>Your cache is being deposited into the world. You will need to accept the Metamask transaction.</p>
         <Button variant="contained" color="primary" onClick={() => callback('success')}>
                 Continue
         </Button>
-      ) : null}
+        </Fragment>
+      ) : (<p>Your cache is being uploaded to the world</p>)
+    }
     </div>
   );
 };
