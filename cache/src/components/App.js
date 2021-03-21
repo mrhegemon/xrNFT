@@ -23,27 +23,14 @@ function App() {
 
   var markerModel = {
         url: './assets/Marker.glb',
-        scale: '0.5 0.5 0.5',
+        scale: '0.6 0.6 0.6',
         info: ''
     }
-  
-  var setModel = function (model, entity) {
-    if (model.scale) {
-        entity.setAttribute('scale', model.scale);
-    }
-  
-    if (model.rotation) {
-        entity.setAttribute('rotation', model.rotation);
-    }
-  
-    if (model.position) {
-        entity.setAttribute('position', model.position);
-    } else {
-      console.log("Model has no position")
-    }
-  
-    entity.setAttribute('gltf-model', model.url);
-  };
+
+
+  useEffect(() => {
+    renderPlaces(caches);
+  }, [caches])
 
   useEffect(() => {
     renderPlaces(caches);
@@ -68,23 +55,21 @@ function App() {
 
         let model = document.createElement('a-entity');
 
-        if( model.getAttribute('id') == undefined ||
-            model.getAttribute('id') == null ||
-            model.getAttribute('id') == ""
-        ){
           console.log("Model ID isn't set");
-
+          model.setAttribute('id', thumbnailUrl);
           model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
           model.setAttribute("look-at", "[gps-camera]");
+          model.setAttribute('rotation', '0 0 0');
+          model.setAttribute('animation-mixer', '');
           
-          setModel(markerModel, model);
-              
-          const distanceMsg = model.getAttribute('gps-entity-place');
-  
-          console.log("Distance message is", distanceMsg);
-        }
+          model.addEventListener('loaded', () => {
+            window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
+          });
 
-        scene.appendChild(model);
+          model.setAttribute('scale', markerModel.scale);
+          model.setAttribute('gltf-model', markerModel.url);
+
+          scene.appendChild(model);
     });
   }
   
@@ -154,16 +139,18 @@ function App() {
   return (
     <div className="App">
       <Nav />
-      <Scene
-        // environment={{ preset: "forest" }}
-        vr-mode-ui='enabled: false'
-        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: true;'>
-          <Entity
-            primitive="a-camera"
-            gps-camera
-            rotation-reader
-          />
-        </Scene>
+      <a-scene
+
+      // environment={{ preset: "forest" }}
+      vr-mode-ui='enabled: false'
+      arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: true;'>
+        <a-camera
+          gps-camera="minDistance: 0; maxDistance: 10000000000000000"
+          rotation-reader
+        />
+
+      </a-scene>
+      
         { viewMode === ViewModes.ARView && 
         <IconButton onClick={() => { setViewMode(ViewModes.CaptureView)}} style={{position:"absolute", width:"3em", height:"3em", marginLeft: "50%", marginRight: "50%", bottom:"3em"}}>
           <PhotoCamera />

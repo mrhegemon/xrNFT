@@ -7,16 +7,16 @@ const mockNFTS = {
     {
       name: "DTLA_1", // Marker is irrelevant
       location: {
-        lat: 34.0407,
-        lng: 118.2468
+        lat: 34.045022401439084,
+        lng: -118.251713100914
       },
       thumbnailUrl: "/uploads/0fdc8067-7609-47d8-8401-4d5ba05c90b9.png"
     },
     {
       name: "DTLA_2", // Marker is irrelevant
       location: {
-        lat: 34.0417,
-        lng: 118.2478
+        lat: 34.0444,
+        lng: -118.251630
       },
       thumbnailUrl: "/uploads/0fdc8067-7609-47d8-8401-4d5ba05c90b9.png"
     },
@@ -24,7 +24,7 @@ const mockNFTS = {
       name: "DTLA_3", // Marker is irrelevant
       location: {
         lat: 34.039,
-        lng: 118.2458
+        lng: -118.251630
       },
       thumbnailUrl: "/uploads/0fdc8067-7609-47d8-8401-4d5ba05c90b9.png"
     }
