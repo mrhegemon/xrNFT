@@ -4,29 +4,10 @@ var uuidv4 = require('uuid/v4');
 const fs = require('fs')
 const genThumbnail = require('simple-thumbnail')
 const { initMinter, stopMinter, mintNFT, getNFT, createSignInRequest } = require('../../src/api/NFT');
-import multer from 'multer';
-
-// Returns a Multer instance that provides several methods for generating 
-// middleware that process files uploaded in multipart/form-data format.
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: './public/uploads',
-    filename: (req, file, cb) => cb(null, file.originalname),
-  }),
-});
-
-const apiRoute = nextConnect({
-  // Handle any other HTTP method
-  onNoMatch(req, res) {
-    res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
-  },
-});
-
-const uploadMiddleware = upload.array('theFiles');
 
 let minterPrepped = false;
 
-apiRoute.post(async (req, res) => {
+export default async (req, res) => {
 
   if(!minterPrepped){
     await initMinter(process.env.SECRET).then(() => {
@@ -85,6 +66,4 @@ apiRoute.post(async (req, res) => {
       thumbnailUrl: `/uploads/${fileName.replace('webm', 'png')}`
     });
   });
-});
-
-export default apiRoute;
+}

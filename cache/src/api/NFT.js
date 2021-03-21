@@ -52,8 +52,8 @@ const createSignInRequest = async (callback) => {
       submit: false,
       expire: 240,
       return_url: {
-        app: `${location.origin}/api/signin?payload={id}`,
-        web: `${location.origin}/api/signin?payload={id}`
+        app: `${location ? location.origin : ""}/api/signin?payload={id}`,
+        web: `${location ? location.origin : ""}/api/signin?payload={id}`
       }
     },
     txjson: {
@@ -71,6 +71,8 @@ const awaitSignInConfirmation = async (signInRequest, callback) => {
 
 const mintNFT = async ({ location, thumbnail, media, metadata }, user_token) => {
 
+  const locationObj = JSON.parse(location);
+
   if(!user_token) user_token = await new Promise((resolve, reject) => {
     createSignInRequest((payload) => {
       if(payload) resolve(payload);
@@ -78,8 +80,9 @@ const mintNFT = async ({ location, thumbnail, media, metadata }, user_token) => 
     })
   })
 
-  const locationString = location.lat + ':' + location.long
+  const locationString = locationObj.lat + ':' + locationObj.lng
 
+  console.log("Location string is", locationString);
   // upload thumbnail and media in parallel
   const [thumbnailCID, mediaCID] = await Promise.all([ addToIPFS(thumbnail), addToIPFS(media)]);
 

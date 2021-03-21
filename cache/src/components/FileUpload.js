@@ -36,7 +36,7 @@ const FileUpload = ({ upload, latLong, callback }) => {
       const formData = new FormData();
       const uploadedFile = blobToFile(upload, "video");
       setUploadedFile(uploadedFile);
-      formData.append('file', uploadedFile);
+      formData.append('video', uploadedFile);
       formData.append('location', JSON.stringify(latLong));
 
         console.log("ATTEMPTING FILE UPLOAD")
@@ -57,18 +57,13 @@ const FileUpload = ({ upload, latLong, callback }) => {
               uploadPercentage
             );
 
-              if(uploadPercentage === 100 && uploadState === UploadStates.Uploading) {
-                setUploadState(UploadStates.Uploaded);
-              }
           }
         }).then((res) => {
+          setUploadState(UploadStates.Uploaded);
 
           const { resultCode, thumbnailUrl } = res.data;
           
           console.log("Received response from NFT upload:", resultCode);
-
-          
-
 
         }).catch (err => {
           console.log(err);
