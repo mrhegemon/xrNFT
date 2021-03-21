@@ -1,27 +1,28 @@
-# xrNFT cache.XRP greenNFT wallets
+# xrNFT LifeCache
 
-GreenNTF magic in 3D AR Immersive worldscale 2D/3D art
+Leave your memories around the world on the blockchain with GreenNTF magic.
+
+See your history in 2D/3D art in Immersive worldscale web based AR
 
 WebXR + Minting ERC721 and ERC1155 tokens or XRP Purchase Wallets as a GreenNFT
 
 ## NFTHack Project
 
+Works for Android/iOS - Chrome/Safari Mobile
+
 ### Packages used:
 
-- Polygon
-- IPFS
-- ETH NFT Minter https://github.com/alto-io/nft-minter 
-- AR.js
-- A-Frame
-- NEXT.js
+- Truffle / Polygon for  ETH NFT Minter templates 
+- IPFS for storage
+- AR.js / A-Frame / Three.js for worldscale WebXR
+- NEXT.js for app
 
 # Cache Usage
 
-1. user takes photo / video
-2. uploads to server
+1. User takes photo / video / uploads media
+2. Uploads to NFT mint server
 3. server POST IPFS hash
-4. server pins hash
-5. server mints nft with ipfs hash
-6. POST returns true or whatever metadata client needs
-7. user displays NFT
+4. Server pins hash and mints nft with ipfs hash
+6. Server will return NFT metadata to client
+7. Client displays NFT in worldscale XR interface on the web. 
 
