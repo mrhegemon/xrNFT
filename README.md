@@ -15,7 +15,7 @@ WebXR + Minting ERC721 and ERC1155 tokens or XRP Purchase Wallets as a GreenNFT
 - A-Frame
 - NEXT.js
 
-# Usage
+# Cache Usage
 
 1. user takes photo / video
 2. uploads to server
@@ -25,8 +25,3 @@ WebXR + Minting ERC721 and ERC1155 tokens or XRP Purchase Wallets as a GreenNFT
 6. POST returns true or whatever metadata client needs
 7. user displays NFT
 
-# Cache
-
-## Server
-
-## Client
