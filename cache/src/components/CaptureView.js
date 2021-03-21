@@ -13,11 +13,14 @@ const CaptureView = (props) => {
 
   return (
     <div className="overlay">
-    <IconButton size="medium" onClick={() => { console.log("Return callback is", callback); callback(false) }} style={{position:"fixed", zIndex:"10000", width:"3em", height:"3em", right: "3em", top:"3em"}}>
+    <IconButton size="medium" onClick={() => { console.log("Return callback is", callback); callback(false) }} style={{position:"fixed", zIndex:"10000", width:"3em", height:"3em", right: "1em", top:"1em"}}>
       <CloseIcon fontSize="large"/>
     </IconButton>
     {videoBlob && 
-      <Button size="medium" onClick={() => { console.log("Return callback is", callback); callback(true, videoBlob) }} style={{position:"fixed", zIndex:"10000", width:"3em", height:"3em", right: "3em", bottom:"3em"}}>
+      <Button size="medium" onClick={() => { console.log("Return callback is", callback); callback(true, videoBlob) }}
+      variant="contained" color="primary"
+      style={{position:"fixed", zIndex:"10000", width:"4em", height:"2em", marginRight: "50%", marginLeft: "50%", bottom:"1.5em", transform: "translate(-50%, 0%)"
+    }}>
         Save
       </Button>
 

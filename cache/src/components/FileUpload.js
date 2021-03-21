@@ -1,11 +1,6 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import Message from './Message';
-import Progress from './Progress';
-import axios from 'axios';
 import { Button } from "@material-ui/core";
-
+import React, { useEffect, useState } from 'react';
 import { getThumbnails } from 'video-metadata-thumbnails';
-
 
 function blobToFile(theBlob, fileName){
   //A Blob() is almost a File() - it's just missing the two properties below which we will add
@@ -29,7 +24,6 @@ const FileUpload = ({ mint, uploadCacheToIPFS, upload, latLong, callback }) => {
 
   const [uploadState, setUploadState] = useState(UploadStates.NotUploaded);
   const [message, setMessage] = useState('');
-  const [uploadPercentage, setUploadPercentage] = useState(0);
   const [uploadedFile, setUploadedFile] = useState(null);
 
   useEffect(async () => {
@@ -67,13 +61,10 @@ const FileUpload = ({ mint, uploadCacheToIPFS, upload, latLong, callback }) => {
   }, [latLong])
 
   return (
-    <div className="overlay">
-      {message ? <Message msg={message} /> : null}
-
-        <Progress percentage={uploadPercentage} />
-
+    <div className="messageoverlay">
+    <p>Your cache has been deposited into the world</p>
       {uploadedFile ? (
-        <Button onClick={() => callback('success')}>
+        <Button variant="contained" color="primary" onClick={() => callback('success')}>
                 Continue
         </Button>
       ) : null}

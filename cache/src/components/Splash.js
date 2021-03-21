@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import Image from 'next/image'
 
 const Splash = () => {
 
@@ -8,9 +9,20 @@ const Splash = () => {
   // 3. Design splash
 
   return (
-    <Fragment>
-      
-    </Fragment>
+    <div className="overlay">
+      <img
+        style={{
+          position: "fixed",
+          marginRight: "50%",
+          marginLeft: "50%",
+          top:"40%",
+          transform: "translate(-50%, -50%)"
+        }}
+        src="/assets/SplashLogo.png"
+        alt="Logo"
+        className="splashLogo"
+      />
+    </div>
   );
 };
 

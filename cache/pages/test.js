@@ -110,7 +110,7 @@ function App() {
       
       // environment={{ preset: "forest" }}
       vr-mode-ui='enabled: false'
-      arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: true;'>
+      arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
         <a-camera
           gps-camera="minDistance: 0; maxDistance: 10000000000000000"
           rotation-reader
