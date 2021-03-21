@@ -8,11 +8,11 @@ WebXR + Minting ERC721 and ERC1155 tokens or XRP Purchase Wallets as a GreenNFT
 
 ### Packages used:
 
-- Polygon https://polygon-nft-minter.netlify.app/
+- Polygon
+- IPFS
 - ETH NFT Minter https://github.com/alto-io/nft-minter 
 - AR.js
 - A-Frame
-- IPFS https://pinata.cloud/
 - NEXT.js
 
 # Usage
