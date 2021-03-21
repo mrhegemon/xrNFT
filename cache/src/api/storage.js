@@ -1,5 +1,6 @@
 const JSONdb = require('simple-json-db');
-const db = new JSONdb(`${__dirname}/data/database.json`);
+const db = new JSONdb(`./data/database.json`);
+db.sync()
 
 const getNFTs = ({ lat, long }, maxCount) => {
   console.log('getNFTs', lat, long, maxCount);
@@ -22,9 +23,8 @@ const getNFTs = ({ lat, long }, maxCount) => {
  * 
  */
 
-const saveNFT = ({ lat, long }, nft) => {
-  db.set(lat + ":" + long, nft)
-  db.sync()
+const saveNFT = ({ lat, lng }, nft) => {
+  db.set(lat + ":" + lng, nft)
 }
 
 module.exports = {

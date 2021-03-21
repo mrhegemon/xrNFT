@@ -4,7 +4,7 @@ var uuidv4 = require('uuid/v4');
 const fs = require('fs')
 const genThumbnail = require('simple-thumbnail')
 import nextConnect from 'next-connect';
-const { initMinter, stopMinter, mintNFT, getNFT, createSignInRequest } = require('../../src/api/NFT');
+const { initMinter, stopMinter, mintNFT, getNearestNFTs } = require('../../src/api/NFT');
 import multer from 'multer';
 let minterPrepped = false;
 
@@ -27,12 +27,12 @@ apiRoute.post(upload.single('video'), async (req, res) => {
 console.log("FILE IS")
 console.log(req.file);
 
-  // if(!minterPrepped){
-  //   await initMinter(process.env.SECRET).then(() => {
-  //     console.log("Minter prepped");
-  //     minterPrepped = true;
-  //   })
-  // }
+  if(!minterPrepped){
+    await initMinter().then(() => {
+      console.log("Minter prepped");
+      minterPrepped = true;
+    })
+  }
 
 
   console.log("Upload file request received");
@@ -62,37 +62,39 @@ console.log(req.file);
 
   fs.renameSync(`./public/uploads/video.webm`, `./public/uploads/${fileName}`)
 
-    console.log("CWD is", process.cwd());
+    let ipfsHash;
+    try { 
+      console.log("CWD is", process.cwd());
 
-    await genThumbnail(`${process.cwd()}/public/uploads/${fileName}`, `${process.cwd()}/public/uploads/${fileName.replace('webm', 'png')}`, '512x?').catch(err => {
-      console.log(err);
-    })
-    console.log(" CREATING NFT DATA:")
-    console.log("Location is ", req.location);
-    console.log("Location could also be ", req.body.location);
+      await genThumbnail(`${process.cwd()}/public/uploads/${fileName}`, `${process.cwd()}/public/uploads/${fileName.replace('webm', 'png')}`, '512x?').catch(err => {
+        console.log(err);
+      })
+      console.log(" CREATING NFT DATA:")
+      console.log("Location is ", req.location);
+      console.log("Location could also be ", req.body.location);
 
-    console.log(req.body)
-    const nftData = {
-      location: req.body.location,
-      media: fs.readFileSync(`./public/uploads/${fileName}`),
-      thumbnail: fs.readFileSync(`./public/uploads/${fileName.replace('webm', 'png')}`),
-      metadata: '' // if we want like text or whatever
+      const nftData = {
+        location: req.body.location,
+        media: fs.readFileSync(`./public/uploads/${fileName}`),
+        thumbnail: fs.readFileSync(`./public/uploads/${fileName.replace('webm', 'png')}`),
+        metadata: '' // if we want like text or whatever
+      }
+      
+      ipfsHash = await mintNFT(nftData);
+      
+      fs.rmSync(`./public/uploads/${fileName}`);
+      fs.rmSync(`./public/uploads/${fileName.replace('webm','png')}`);
+    } catch (e) {
+      console.log(e)
     }
-
-    // const nftResponse = await mintNFT(nftData, req.body.user_token);
-    console.log("**** NFT MINTED");
-    // if (!nftResponse) {
-    //   return res.status(500).json({ msg: 'Failed to mint token, try again soon.' });
-    // }
-    // console.log(nftResponse);
-    // await fs.rm(`./public/uploads/${fileName}`);
-    // await fs.rm(`./public/uploads/${fileName.replace('webm','png')}`);
-
-    // TODO: Change the thumbnail URL as it is currently hardcoded
-    res.json({
-      ...nftData,
-      // ...nftResponse,
-      thumbnailUrl: `/uploads/${fileName.replace('webm', 'png')}`
+    
+    console.log('ipfsHash', ipfsHash);
+    
+    if (!ipfsHash) {
+      return res.status(500).json({ msg: 'Failed to mint token, try again soon.' });
+    }
+    res.status(200).json({
+      ipfsHash,
     });
 });
 

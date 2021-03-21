@@ -17,7 +17,6 @@ function App() {
   const [latLong, setLatLong] = useState(null);
   const [caches, setCaches] = useState([]);
   const [video, setVideo] = useState(null);
-  const [signedIn, setSignedIn] = useState(false);
 
   const [ canUseLocation, setCanUseLocation] = useState(true);
 
@@ -124,18 +123,6 @@ function App() {
     }
   }, []);
 
-  const signIn = useCallback(() => {
-    axios.get(`${location.origin}/api/signin`).then((res) => {
-      if(res.status === 200) {
-        if(res.data.redirect) {
-          window.open(res.data.redirect);
-        } else if(res.data.user_token) {
-          localStorage.setItem('XUMM_USER_TOKEN', res.data.user_token)
-        }
-      }
-    })
-  })
-
   return (
     <div className="App">
       <Nav />
@@ -165,7 +152,6 @@ function App() {
       { viewMode === ViewModes.UploadView && 
         <FileUpload upload={video} latLong={latLong} callback={handleFileUploadCallback}/>
       }
-      <button onClick={signIn}>Sign In</button>
 
     </div>
   );
