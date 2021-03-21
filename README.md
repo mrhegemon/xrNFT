@@ -2,7 +2,11 @@
 
 Leave your memories around the world on the blockchain with GreenNTF magic.
 
-See your history in 2D/3D art in Immersive worldscale web based AR
+See your history in 2D/3D art in Immersive worldscale web based AR. 
+
+Creates green NFT receipts in wallets GeoCaches of webAR content on the 3D Web app using web location tech accessing, GPS, camera, compass, gyroscope accelerometer, other sensors.
+
+Think pokemon go with videos, 3D models, and pics right from the web.
 
 WebXR + Minting ERC721 and ERC1155 tokens or XRP Purchase Wallets as a GreenNFT
 
