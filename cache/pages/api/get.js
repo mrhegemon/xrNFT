@@ -5,6 +5,30 @@ const url = require('url');
 const mockNFTS = {
   tokens: [
     {
+      name: "LAGUNA_1", // Marker is irrelevant
+      location: {
+        lat: 33.5146934,
+        lng: -117.7238909
+      },
+      thumbnailUrl: "/uploads/0fdc8067-7609-47d8-8401-4d5ba05c90b9.png"
+    },
+    {
+      name: "LAGUNA_2", // Marker is irrelevant
+      location: {
+        lat: 33.5046934,
+        lng: -117.7138909
+      },
+      thumbnailUrl: "/uploads/0fdc8067-7609-47d8-8401-4d5ba05c90b9.png"
+    },
+    {
+      name: "LAGUNA_3", // Marker is irrelevant
+      location: {
+        lat: 33.5046934,
+        lng: -117.7238909
+      },
+      thumbnailUrl: "/uploads/0fdc8067-7609-47d8-8401-4d5ba05c90b9.png"
+    },
+    {
       name: "DTLA_1", // Marker is irrelevant
       location: {
         lat: 34.045022401439084,
