@@ -1,14 +1,15 @@
-# xrNFT LifeCache
+# LifeCache backend 
+## With a web based xrNFT viewer
 
-Leave your memories around the world on the blockchain with GreenNTF magic.
+Immutable memories stored in the world, using the blockchain as a public database.
 
-See your history in 2D/3D art in Immersive worldscale web based AR. 
-
-Creates green NFT receipts in wallets GeoCaches of webAR content on the 3D Web app using web location tech accessing, GPS, camera, compass, gyroscope accelerometer, other sensors.
+See your history in 2D/3D art in Immersive worldscale web based AR. LifeCache uses a web based xrNFT viewer that creates NFT GeoCaches of webAR content on the 3D Web app using web location tech accessing, GPS, camera, compass, gyroscope accelerometer, other sensors.
 
 Think pokemon go with videos, 3D models, and pics right from the web.
 
-WebXR + Minting ERC721 and ERC1155 tokens or XRP Purchase Wallets as a GreenNFT
+WebXR + Minting ERC721 and ERC1155 tokens
+
+Works for Android/iOS - Chrome/Safari Mobile
 
 ## NFTHack Project
 
